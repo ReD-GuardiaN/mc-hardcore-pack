@@ -1,0 +1,97 @@
+{
+  "providers": [
+    {
+      "type": "space",
+      "advances": {
+        "\ue100": -1,
+        "\ue110": 1,
+        "\ue101": -2,
+        "\ue111": 2,
+        "\ue102": -3,
+        "\ue112": 3,
+        "\ue103": -4,
+        "\ue113": 4,
+        "\ue104": -8,
+        "\ue114": 8,
+        "\ue105": -16,
+        "\ue115": 16,
+        "\ue106": -32,
+        "\ue116": 32,
+        "\ue107": -64,
+        "\ue117": 64
+      }
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/dragon_grey.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue000"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/dragon.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue001"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/wither_grey.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue002"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/wither.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue003"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/warden_grey.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue004"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/warden.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue005"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/elder_grey.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue006"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/elder.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue007"
+      ]
+    }
+  ]
+}
