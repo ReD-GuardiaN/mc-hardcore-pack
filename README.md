@@ -1,26 +1,25 @@
 # mc-hardcore-pack
 
 HUD resource pack for a small private Minecraft server (26.1.2, pack format 84).
-It contains four boss face icons cropped from the vanilla Minecraft client
-textures, plus a fully transparent PINK boss bar sprite so a plugin can use a
-PINK boss bar purely as a text anchor.
+It contains boss face icons and armor icons derived from the vanilla Minecraft
+client textures, durability bar glyphs, and a fully transparent PINK boss bar
+sprite so a plugin can use a PINK boss bar purely as a text anchor.
 
 Not affiliated with Mojang. The derived textures are Mojang's; this is only
 useful to players who already own the game.
 
 ## Contract
 
-Font `hcpack:hud`, icons 16x16, `height` 16, `ascent` 12.
+Font `hcpack:hud`, all glyphs 16x16, `height` 16, `ascent` 12.
 
-| Codepoint | Icon |
+**[CODEPOINTS.md](CODEPOINTS.md) is the authoritative table.** Summary:
+
+| Range | Contents |
 |---|---|
-| `U+E000` / `U+E001` | ender dragon - grey / colour |
-| `U+E002` / `U+E003` | wither - grey / colour |
-| `U+E004` / `U+E005` | warden - grey / colour |
-| `U+E006` / `U+E007` | elder guardian - grey / colour |
-
-Negative space: `U+E100..U+E107` = -1, -2, -3, -4, -8, -16, -32, -64 px.
-Positive space: `U+E110..U+E117` = the same values, positive.
+| `U+E000`..`U+E007` | boss heads, grey/colour pairs: dragon, wither, warden, elder guardian |
+| `U+E100`..`U+E118` | space advances, negative and positive |
+| `U+E200`..`U+E223` | armor, `0xE200 + material*4 + slot` |
+| `U+E230`..`U+E23D` | durability bar, `0xE230 + filled` (0..13) |
 
 The PINK boss bar (`Overlay.PROGRESS` only) draws nothing. GREEN / YELLOW / RED
 and the notched overlays are untouched.

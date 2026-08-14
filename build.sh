@@ -8,7 +8,7 @@ ZIP=dist/hcpack.zip
 python3 src/tools/font.py
 
 python3 - <<'EOF'
-import json, struct, sys, pathlib
+import json, pathlib, struct, subprocess
 root = pathlib.Path("pack")
 mcmeta = json.loads((root / "pack.mcmeta").read_text())
 p = mcmeta["pack"]
@@ -16,12 +16,24 @@ assert "pack_format" not in p, "pack_format is deprecated at format 84, use min_
 assert p["min_format"] == 84 and p["max_format"] == 84, p
 
 font = json.loads((root / "assets/hcpack/font/hud.json").read_text())
+# The contract, restated independently of font.py so a bug in the generator
+# cannot quietly rewrite it.
 expected = {
     0xE000: "dragon_grey", 0xE001: "dragon",
     0xE002: "wither_grey", 0xE003: "wither",
     0xE004: "warden_grey", 0xE005: "warden",
     0xE006: "elder_grey",  0xE007: "elder",
 }
+materials = ["netherite", "diamond", "iron", "golden",
+             "chainmail", "copper", "leather", "turtle", "empty"]
+slots = ["helmet", "chestplate", "leggings", "boots"]
+for mi, m in enumerate(materials):
+    for si, s in enumerate(slots):
+        if m == "turtle" and s != "helmet":
+            continue
+        expected[0xE200 + mi * 4 + si] = f"armor_{m}_{s}"
+for n in range(14):
+    expected[0xE230 + n] = f"bar_{n}"
 seen = {}
 spaces = 0
 for prov in font["providers"]:
@@ -32,7 +44,11 @@ for prov in font["providers"]:
     (cp,) = [ord(c) for line in prov["chars"] for c in line]
     seen[cp] = prov["file"].split("/")[-1].removesuffix(".png")
 assert spaces, "no negative space advances"
-assert seen == expected, f"codepoint contract broken: {seen}"
+assert seen == expected, ("codepoint contract broken",
+                          sorted(set(seen) ^ set(expected)))
+# -17 is what backs up exactly one 16x16 glyph
+assert -17 in [v for p in font["providers"] if p["type"] == "space"
+               for v in p["advances"].values()], "missing -17 advance"
 
 def png_size(path):
     b = path.read_bytes()
@@ -42,13 +58,17 @@ def png_size(path):
 for name in expected.values():
     f = root / f"assets/hcpack/textures/hud/{name}.png"
     assert png_size(f) == (16, 16), (f, png_size(f))
+    # a silently blank 16x16 is the easy failure to ship
+    colours = int(subprocess.run(["identify", "-format", "%k", str(f)],
+                                 capture_output=True, text=True, check=True).stdout)
+    assert colours >= 2, f"blank or uniform icon: {f}"
 for c in ("pink_background", "pink_progress"):
     f = root / f"assets/minecraft/textures/gui/sprites/boss_bar/{c}.png"
     assert png_size(f) == (182, 5), (f, png_size(f))
 # nothing else in the pack may shadow a vanilla boss bar sprite
 bars = sorted(x.name for x in (root / "assets/minecraft/textures/gui/sprites/boss_bar").iterdir())
 assert bars == ["pink_background.png", "pink_progress.png"], bars
-print("validated: format 84, 8 icons, negative space, pink-only bar override")
+print(f"validated: format 84, {len(expected)} glyphs, negative space, pink-only bar override")
 EOF
 
 rm -rf dist && mkdir -p dist

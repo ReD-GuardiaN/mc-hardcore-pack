@@ -15,10 +15,12 @@
         "\ue114": 8,
         "\ue105": -16,
         "\ue115": 16,
-        "\ue106": -32,
-        "\ue116": 32,
-        "\ue107": -64,
-        "\ue117": 64
+        "\ue106": -17,
+        "\ue116": 17,
+        "\ue107": -32,
+        "\ue117": 32,
+        "\ue108": -64,
+        "\ue118": 64
       }
     },
     {
@@ -91,6 +93,429 @@
       "ascent": 12,
       "chars": [
         "\ue007"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_netherite_helmet.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue200"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_netherite_chestplate.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue201"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_netherite_leggings.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue202"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_netherite_boots.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue203"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_diamond_helmet.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue204"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_diamond_chestplate.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue205"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_diamond_leggings.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue206"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_diamond_boots.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue207"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_iron_helmet.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue208"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_iron_chestplate.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue209"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_iron_leggings.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue20a"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_iron_boots.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue20b"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_golden_helmet.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue20c"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_golden_chestplate.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue20d"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_golden_leggings.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue20e"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_golden_boots.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue20f"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_chainmail_helmet.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue210"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_chainmail_chestplate.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue211"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_chainmail_leggings.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue212"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_chainmail_boots.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue213"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_copper_helmet.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue214"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_copper_chestplate.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue215"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_copper_leggings.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue216"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_copper_boots.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue217"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_leather_helmet.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue218"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_leather_chestplate.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue219"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_leather_leggings.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue21a"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_leather_boots.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue21b"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_turtle_helmet.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue21c"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_empty_helmet.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue220"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_empty_chestplate.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue221"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_empty_leggings.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue222"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/armor_empty_boots.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue223"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_0.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue230"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_1.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue231"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_2.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue232"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_3.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue233"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_4.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue234"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_5.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue235"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_6.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue236"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_7.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue237"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_8.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue238"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_9.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue239"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_10.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue23a"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_11.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue23b"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_12.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue23c"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "hcpack:hud/bar_13.png",
+      "height": 16,
+      "ascent": 12,
+      "chars": [
+        "\ue23d"
       ]
     }
   ]
