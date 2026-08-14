@@ -48,5 +48,7 @@ for f in pink_background pink_progress; do
   convert -size 182x5 xc:none -alpha set "$BB/$f.png"
 done
 
-for f in $(ls "$OUT"/*.png "$BB"/*.png); do convert "$f" PNG32:"$f"; done
+# -strip drops ImageMagick's date chunks, which would otherwise change the
+# zip's sha1 on every rebuild and force every client to re-download
+for f in $(ls "$OUT"/*.png "$BB"/*.png); do convert "$f" -strip -define png:exclude-chunk=tIME PNG32:"$f"; done
 identify "$OUT"/*.png "$BB"/*.png
