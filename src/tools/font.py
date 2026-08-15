@@ -10,7 +10,7 @@ ASCENT = -46
 # Boss glyphs carry the new 32px art inside the 18x18 inventory slot scaled 2x,
 # so their canvas is 36x36. The ascent shifts by half the height difference so
 # the art's vertical centre lands where the old 16px heads were.
-BOSS_HEIGHT = 54
+BOSS_HEIGHT = 27
 BOSS_ROW_GAP = 2
 
 # A glyph's bottom sits at (height - ascent) below the text baseline, so matching the armor icons'
