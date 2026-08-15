@@ -27,7 +27,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/dragon_grey.png",
       "height": 36,
-      "ascent": -56,
+      "ascent": 12,
       "chars": [
         "\ue000"
       ]
@@ -36,7 +36,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/dragon.png",
       "height": 36,
-      "ascent": -56,
+      "ascent": 12,
       "chars": [
         "\ue001"
       ]
@@ -45,7 +45,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/wither_grey.png",
       "height": 36,
-      "ascent": -56,
+      "ascent": 12,
       "chars": [
         "\ue002"
       ]
@@ -54,7 +54,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/wither.png",
       "height": 36,
-      "ascent": -56,
+      "ascent": 12,
       "chars": [
         "\ue003"
       ]
@@ -63,7 +63,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/warden_grey.png",
       "height": 36,
-      "ascent": -56,
+      "ascent": 12,
       "chars": [
         "\ue004"
       ]
@@ -72,7 +72,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/warden.png",
       "height": 36,
-      "ascent": -56,
+      "ascent": 12,
       "chars": [
         "\ue005"
       ]
@@ -81,7 +81,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/elder_grey.png",
       "height": 36,
-      "ascent": -56,
+      "ascent": 12,
       "chars": [
         "\ue006"
       ]
@@ -90,7 +90,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/elder.png",
       "height": 36,
-      "ascent": -56,
+      "ascent": 12,
       "chars": [
         "\ue007"
       ]
@@ -522,7 +522,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/dragon_grey.png",
       "height": 36,
-      "ascent": -92,
+      "ascent": -26,
       "chars": [
         "\ue010"
       ]
@@ -531,7 +531,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/dragon.png",
       "height": 36,
-      "ascent": -92,
+      "ascent": -26,
       "chars": [
         "\ue011"
       ]
@@ -540,7 +540,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/wither_grey.png",
       "height": 36,
-      "ascent": -92,
+      "ascent": -26,
       "chars": [
         "\ue012"
       ]
@@ -549,7 +549,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/wither.png",
       "height": 36,
-      "ascent": -92,
+      "ascent": -26,
       "chars": [
         "\ue013"
       ]
@@ -558,7 +558,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/warden_grey.png",
       "height": 36,
-      "ascent": -92,
+      "ascent": -26,
       "chars": [
         "\ue014"
       ]
@@ -567,7 +567,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/warden.png",
       "height": 36,
-      "ascent": -92,
+      "ascent": -26,
       "chars": [
         "\ue015"
       ]
@@ -576,7 +576,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/elder_grey.png",
       "height": 36,
-      "ascent": -92,
+      "ascent": -26,
       "chars": [
         "\ue016"
       ]
@@ -585,7 +585,7 @@
       "type": "bitmap",
       "file": "hcpack:hud/elder.png",
       "height": 36,
-      "ascent": -92,
+      "ascent": -26,
       "chars": [
         "\ue017"
       ]

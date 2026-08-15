@@ -11,7 +11,14 @@ ASCENT = -46
 # so their canvas is 36x36. The ascent shifts by half the height difference so
 # the art's vertical centre lands where the old 16px heads were.
 BOSS_HEIGHT = 36
-BOSS_ASCENT = ASCENT - (BOSS_HEIGHT - HEIGHT) // 2
+BOSS_ROW_GAP = 2
+
+# A glyph's bottom sits at (height - ascent) below the text baseline, so matching the armor icons'
+# bottom edge means solving BOSS_HEIGHT - A = HEIGHT - ASCENT for the LOWER row. The upper row is
+# then one glyph plus the row gap higher. Deriving both from the armor line keeps the block pinned
+# to the hotbar when ASCENT is retuned, instead of drifting off the bottom of the screen.
+BOSS_ROW2_ASCENT = BOSS_HEIGHT - (HEIGHT - ASCENT)
+BOSS_ASCENT = BOSS_ROW2_ASCENT + BOSS_HEIGHT + BOSS_ROW_GAP
 
 # A second row cannot be produced by moving the pen - vertical position lives in
 # the provider's ascent - so every boss head is registered twice, the lower copy
@@ -19,7 +26,6 @@ BOSS_ASCENT = ASCENT - (BOSS_HEIGHT - HEIGHT) // 2
 # row 2 by backing up and emitting the shifted codepoints; this is what makes a
 # 2x2 cluster possible with boss-columns: 2.
 BOSS_ROW_DELTA = 0x10
-BOSS_ROW2_ASCENT = BOSS_ASCENT - BOSS_HEIGHT
 
 BOSSES = [
     ("dragon_grey", 0xE000), ("dragon", 0xE001),
