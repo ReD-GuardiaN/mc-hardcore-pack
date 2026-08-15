@@ -62,6 +62,15 @@ for name in expected.values():
     colours = int(subprocess.run(["identify", "-format", "%k", str(f)],
                                  capture_output=True, text=True, check=True).stdout)
     assert colours >= 2, f"blank or uniform icon: {f}"
+    # THE advance contract: the client derives a glyph's advance from its rightmost
+    # non-transparent column, so every glyph must reach column 15 or the plugin's
+    # uniform 17 px advance is wrong and durability bars drift off their icons.
+    last = max(int(line.split(",")[0])
+               for line in subprocess.run(["convert", str(f), "-alpha", "extract", "txt:-"],
+                                          capture_output=True, text=True, check=True
+                                          ).stdout.splitlines()[1:]
+               if not line.split(":")[1].strip().startswith("(0)"))
+    assert last == 15, f"{f} last opaque column is {last}, must be 15 (advance would be {last + 2})"
 # The vanilla armor row must be blanked, and nothing else in gui/sprites/hud may be.
 hud = root / "assets/minecraft/textures/gui/sprites/hud"
 overrides = sorted(x.name for x in hud.iterdir())

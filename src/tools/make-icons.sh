@@ -93,6 +93,18 @@ for f in armor_full armor_half armor_empty; do
   convert -size 9x9 xc:none -alpha set "$HUD/$f.png"
 done
 
+# Pin every glyph to a 17 px advance.
+# A bitmap font glyph does NOT advance by its image width: the client scans for the
+# rightmost non-transparent column and advances that + 2. Vanilla armor art stops at
+# column 12 (helmets, leggings) or 14 (chestplates, boots), so glyphs advanced 14 or 16
+# and the plugin's uniform -17 back-up threw every durability bar 1-3 px left of its
+# icon, differently per slot. One alpha-1 pixel in the last column makes the scan
+# return 15 for every glyph, so all of them advance 17 and the arithmetic holds.
+# Alpha 1/255 is invisible; alpha 0 would not count.
+for f in "$OUT"/*.png; do
+  convert "$f" -alpha set -fill 'rgba(0,0,0,0.004)' -draw 'point 15,15' "$f"
+done
+
 # -strip drops ImageMagick's date chunks, which would otherwise change the
 # zip's sha1 on every rebuild and force every client to re-download
 for f in $(ls "$OUT"/*.png "$HUD"/*.png); do convert "$f" -strip -define png:exclude-chunk=tIME PNG32:"$f"; done

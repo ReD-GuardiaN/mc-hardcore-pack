@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
 """Boss checklist icons composed from vanilla textures, not hand-drawn.
 
-Each icon is a real hotbar slot from the vanilla hotbar sprite with a real
-vanilla item sprite centred in it, so the row reads as extra hotbar slots.
+Each icon is the classic 18x18 inventory slot (gui/sprites/container/slot.png)
+with a real vanilla item sprite centred in it, so it reads as inventory
+furniture rather than as a custom widget.
 
   unlocked  the item sprite, untouched, full colour
-  locked    the same sprite as a flat #555555 silhouette - the exact tone
-            vanilla uses for its empty-armour-slot placeholders, which is
-            the game's own "nothing here yet" language and the only grey
-            that stays readable on the dark slot fill
+  locked    the same sprite as a flat dark silhouette, the recipe-book
+            treatment for something not discovered yet
+
+Sizes come from nearest-neighbour scaling the real art. Drawing native
+higher-resolution art was considered and dropped: there is no vanilla source
+above 16x16, so it would mean hand-drawing again, which is what this whole
+approach exists to avoid.
 
 Swapping which item represents a boss is a one-line edit in CHOSEN.
 
@@ -251,8 +255,12 @@ def make_bg(dest, scene, w, h):
         # Real grass_block_top, biome-tinted the way the game tints it and
         # scaled to a plausible on-screen block size. A light grey frame on
         # bright grass is the failure mode worth seeing before shipping.
+        # Multiply the biome tint into the greyscale texture, the way the game
+        # tints it. -colorize would flatten it to a single green and hide the
+        # texture noise this test exists to check against.
         run(os.path.join(RAW, "grass_block_top.png"),
-            "-fill", "#91BD59", "-colorize", "100%",
+            "(", "+clone", "-fill", "#91BD59", "-colorize", "100", ")",
+            "-compose", "multiply", "-composite", "-compose", "over",
             "-filter", "point", "-resize", "400%",
             "-write", "mpr:tile", "+delete",
             "-size", "%dx%d" % (w, h), "tile:mpr:tile",
@@ -278,29 +286,22 @@ def make_mock(items_states, dest, scale=1, cols=4, scene="dark"):
     return w, MOCK_H, cw, ch
 
 
-def make_mock(items_states, dest):
-    row = os.path.join(RAW, "_row.png")
-    make_row(items_states, row)
-    # Background gets quantised on its own: Gaussian noise over a full-depth
-    # gradient is ~180 KB of incompressible dither, and this page inlines
-    # every image as a data URI.
-    bg = os.path.join(RAW, "_bg.png")
-    run("-size", "%dx%d" % (MOCK_W, MOCK_H), "gradient:#31465e-#0a0e13",
-        "-attenuate", "0.4", "+noise", "Gaussian",
-        "-depth", "8", "-colors", "24", bg)
-    run(bg,
-        "(", os.path.join(RAW, "hotbar.png"), ")",
-        "-geometry", "+%d+%d" % (PAD, HOTBAR_Y), "-composite",
-        "(", os.path.join(RAW, "hotbar_offhand_right.png"), ")",
-        "-geometry", "+%d+%d" % (PAD + 182, HOTBAR_Y - 1), "-composite",
-        "(", row, ")",
-        "-geometry", "+%d+%d" % (PAD + ROW_DX, HOTBAR_Y + 1), "-composite",
-        "-depth", "8", "-strip", dest)
-
-
 def uri(path):
     with open(path, "rb") as fh:
         return "data:image/png;base64," + base64.b64encode(fh.read()).decode()
+
+
+# (scale, cols, id, label). 4-across at 2x is 144px wide and blows the 115px
+# budget, so it is not offered.
+OPTIONS = [
+    (1, 4, "4x16", "Four across, 16px art"),
+    (1.5, 4, "4x24", "Four across, 24px art"),
+    (1, 2, "2x2x16", "2x2 grid, 16px art"),
+    (1.5, 2, "2x2x24", "2x2 grid, 24px art"),
+    (2, 2, "2x2x32", "2x2 grid, 32px art"),
+]
+
+MIXED = ["unlocked", "unlocked", "locked", "locked"]
 
 
 def main():
@@ -310,28 +311,33 @@ def main():
     os.makedirs(os.path.dirname(PREVIEW), exist_ok=True)
 
     icons = {}
-    for boss, (_label, cands) in CANDIDATES.items():
+    for _boss, (_label, cands) in CANDIDATES.items():
         for item, _n, _kind, _why, _warn in cands:
             for state in ("unlocked", "locked"):
                 dest = os.path.join(OUT, "%s_%s.png" % (item, state))
                 make_icon(item, state, dest)
                 icons[(item, state)] = uri(dest)
 
-    mocks = {}
-    combos = {
-        "locked": [(CHOSEN[b], "locked") for b in ORDER],
-        "mixed": [(CHOSEN["dragon"], "unlocked"), (CHOSEN["wither"], "unlocked"),
-                  (CHOSEN["warden"], "locked"), (CHOSEN["elder"], "locked")],
-        "unlocked": [(CHOSEN[b], "unlocked") for b in ORDER],
-    }
-    for name, combo in combos.items():
-        dest = os.path.join(OUT, "mock_%s.png" % name)
-        make_mock(combo, dest)
-        mocks[name] = uri(dest)
+    mixed = list(zip([CHOSEN[b] for b in ORDER], MIXED))
+    opts = {}
+    for scale, cols, oid, label in OPTIONS:
+        dest = os.path.join(OUT, "cluster_%s.png" % oid)
+        cw, ch = make_cluster(mixed, dest, scale, cols)
+        entry = {"label": label, "w": cw, "h": ch, "cluster": uri(dest),
+                 "scale": scale, "cols": cols, "fits": cw <= BUDGET}
+        for scene in ("dark", "grass"):
+            m = os.path.join(OUT, "mock_%s_%s.png" % (oid, scene))
+            mw, mh, _, _ = make_mock(mixed, m, scale, cols, scene)
+            entry[scene] = uri(m)
+            entry["mock_w"], entry["mock_h"] = mw, mh
+        opts[oid] = entry
+        print("  %-22s cluster %dx%d  %s" %
+              (label, cw, ch, "fits" if cw <= BUDGET else "OVER BUDGET"))
 
+    slot_uri = uri(os.path.join(RAW, "slot.png"))
     with open(PREVIEW, "w") as fh:
-        fh.write(build_html(icons, mocks))
-    print("wrote %d slot PNGs + 3 mocks to %s" % (len(icons), OUT))
+        fh.write(build_html(icons, opts, slot_uri))
+    print("wrote %d slot PNGs to %s" % (len(icons), OUT))
     print("wrote %s" % PREVIEW)
 
 
@@ -406,8 +412,10 @@ img { image-rendering: pixelated; image-rendering: crisp-edges; display: block; 
 .mock:last-child { margin-bottom: 0; }
 .mock .cap { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
 .mock img { border-radius: 4px; }
-.mock-actual { width: 336px; height: 72px; }
-.mock-zoom { width: 672px; height: 144px; }
+.pair { display: flex; align-items: flex-end; gap: 9px; }
+.sz { font-size: 10px; color: var(--muted); margin-top: 4px; text-align: center; }
+.head { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.title { font-weight: 650; font-size: 15px; }
 
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 14px; }
 .card { background: var(--panel); border: 1px solid var(--border); border-radius: 10px;
@@ -426,8 +434,8 @@ img { image-rendering: pixelated; image-rendering: crisp-edges; display: block; 
 .shot { text-align: center; }
 .shot .lbl { font-size: 11px; color: var(--muted); margin-bottom: 5px; }
 .shot .pair { display: flex; align-items: flex-end; gap: 9px; }
-.z6 { width: 120px; height: 120px; }
-.a1 { width: 20px; height: 20px; }
+.z6 { width: 108px; height: 108px; }
+.a1 { width: 18px; height: 18px; }
 .shot .sz { font-size: 10px; color: var(--muted); margin-top: 4px; }
 """
 
@@ -436,41 +444,78 @@ def esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def build_html(icons, mocks):
-    o = ["<title>Boss slots from vanilla textures</title>",
+def build_html(icons, opts, slot_uri):
+    o = ["<title>Boss slots - frame, size and item choice</title>",
          "<style>%s</style>" % CSS, '<div class="wrap">']
 
     o.append("<h1>Boss checklist, built from the game's own art</h1>")
-    o.append('<p class="muted">No drawing this time. Every icon is a real hotbar '
-             "slot cut from the vanilla hotbar sprite with a real vanilla item "
-             "sprite centred in it. Locked is that same sprite as a flat "
-             "<code>#555555</code> silhouette, which is exactly the grey vanilla "
-             "uses for the empty armour-slot placeholders in your inventory.</p>")
+    o.append('<p class="muted">Every icon is the classic inventory slot '
+             "(<code>gui/sprites/container/slot.png</code>, exactly 18&times;18: a "
+             "16&times;16 interior inside a 1px bevel) with a real vanilla item "
+             "sprite centred in it. Locked is that sprite as a flat "
+             "<code>#3b3b3b</code> silhouette, the recipe-book treatment for "
+             "something you have not unlocked.</p>")
+    o.append('<p class="muted">Three decisions on this page, independent of each '
+             "other: <b>how big</b>, <b>what shape</b>, and <b>which item per "
+             "boss</b>.</p>")
 
-    o.append('<div class="hero">')
-    o.append("<h3>The test that matters: does it sit next to the hotbar?</h3>")
-    o.append('<p class="muted" style="margin-top:0">Actual size, real geometry. The '
-             "hotbar spans &plusmn;91 from screen centre, the offhand slot sits just "
-             "past it, and the boss row occupies &plusmn;125 to &plusmn;205 - so it "
-             "cannot touch the hotbar, but it should read as the same furniture. "
-             "Zoomed 2x underneath each.</p>")
-    for name, cap in (("locked", "Fresh world - all four locked"),
-                      ("mixed", "Mid run - dragon and wither down"),
-                      ("unlocked", "Done - all four unlocked")):
-        o.append('<div class="mock"><div class="cap">%s</div>' % cap)
-        o.append('<div class="scroller">')
-        o.append('<img class="mock-actual" src="%s" alt="">' % mocks[name])
-        o.append("</div><div class=\"scroller\" style=\"margin-top:6px\">")
-        o.append('<img class="mock-zoom" src="%s" alt="">' % mocks[name])
-        o.append("</div></div>")
-    o.append("</div>")
-    o.append('<p class="muted">Those use the current pick: %s. '
-             "Everything below is the menu - pick per boss, not per set.</p>"
+    o.append('<div class="hero"><h3>The frame, straight from the jar</h3>')
+    o.append('<div class="pair" style="align-items:flex-end;gap:14px">')
+    o.append('<div><img style="width:180px;height:180px" src="%s" alt="">'
+             '<div class="sz">10x</div></div>' % slot_uri)
+    o.append('<div><img style="width:18px;height:18px" src="%s" alt="">'
+             '<div class="sz">actual 18&times;18</div></div>' % slot_uri)
+    o.append("</div></div>")
+
+    o.append("<h2>Size and shape</h2>")
+    o.append('<p class="muted">Usable width per side is 115px (+125 to +240). Each '
+             "option below is shown at actual size against a dark scene and against "
+             "daylight grass, with the real hotbar next to it at true scale - that "
+             "adjacency is the whole test. Every mock is the same mixed state: "
+             "dragon and wither unlocked, warden and elder still locked.</p>")
+    o.append('<div class="warn" style="max-width:640px">Four across at 32px art '
+             "would be 144px wide and does not fit the 115px budget, so it is not "
+             "offered. %s<br><br>Native higher-resolution art - genuinely more "
+             "detail at 32px rather than scaled-up 16px - is not here on purpose. "
+             "Vanilla has no source above 16&times;16, so it would mean hand-drawing "
+             "the icons again, which is exactly what got rejected. Everything below "
+             "is real vanilla art, scaled.</div>" % esc(SCALE_NOTE))
+
+    for _scale, _cols, oid, label in OPTIONS:
+        e = opts[oid]
+        o.append('<div class="hero">')
+        o.append('<div class="head"><span class="title">%s</span>' % esc(label))
+        o.append('<span class="tag">cluster %d&times;%d px</span>' % (e["w"], e["h"]))
+        o.append('<span class="tag">%s</span>' % ("fits the budget" if e["fits"]
+                                                  else "over budget"))
+        o.append("</div>")
+        o.append('<div class="pair" style="align-items:flex-end;gap:16px;margin:10px 0 14px">')
+        o.append('<div><img style="width:%dpx;height:%dpx" src="%s" alt="">'
+                 '<div class="sz">actual</div></div>' % (e["w"], e["h"], e["cluster"]))
+        o.append('<div><img style="width:%dpx;height:%dpx" src="%s" alt="">'
+                 '<div class="sz">3x</div></div>'
+                 % (e["w"] * 3, e["h"] * 3, e["cluster"]))
+        o.append("</div>")
+        for scene, cap in (("dark", "Dark scene - night or a cave"),
+                           ("grass", "Daylight on grass - the bright-background test")):
+            o.append('<div class="mock"><div class="cap">%s</div>' % cap)
+            o.append('<div class="scroller"><img style="width:%dpx;height:%dpx" '
+                     'src="%s" alt=""></div>'
+                     % (e["mock_w"], e["mock_h"], e[scene]))
+            o.append('<div class="scroller" style="margin-top:6px">'
+                     '<img style="width:%dpx;height:%dpx" src="%s" alt=""></div>'
+                     % (e["mock_w"] * 2, e["mock_h"] * 2, e[scene]))
+            o.append("</div>")
+        o.append("</div>")
+
+    o.append("<h2>Which item per boss</h2>")
+    o.append('<p class="muted">Shown at 16px in the same frame; the choice of item '
+             "is independent of the size you pick above. Current picks: %s.</p>"
              % esc(", ".join("%s = %s" % (CANDIDATES[b][0], CHOSEN[b]) for b in ORDER)))
 
     for boss in ORDER:
         label, cands = CANDIDATES[boss]
-        o.append("<h2>%s</h2>" % esc(label))
+        o.append("<h3 style=\"margin-top:22px\">%s</h3>" % esc(label))
         o.append('<div class="grid">')
         for item, name, kind, why, warn in cands:
             picked = CHOSEN[boss] == item
