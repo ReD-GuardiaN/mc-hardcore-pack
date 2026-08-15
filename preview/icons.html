@@ -1,0 +1,368 @@
+<title>Boss icon directions - 16x16</title>
+<style>
+:root {
+  --bg: #f4f5f7;
+  --panel: #ffffff;
+  --border: #d7dae0;
+  --text: #16181d;
+  --muted: #5c6370;
+  --scene-a: #1b2430;
+  --scene-b: #0d1219;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1116;
+    --panel: #171a21;
+    --border: #2a2f39;
+    --text: #e6e8ec;
+    --muted: #98a0ad;
+    --scene-a: #1b2430;
+    --scene-b: #0d1219;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1116;
+  --panel: #171a21;
+  --border: #2a2f39;
+  --text: #e6e8ec;
+  --muted: #98a0ad;
+  --scene-a: #1b2430;
+  --scene-b: #0d1219;
+}
+body {
+  margin: 0;
+  padding: 24px 16px 64px;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+}
+.wrap { max-width: 1000px; margin: 0 auto; }
+h1 { font-size: 22px; margin: 0 0 4px; }
+h2 { font-size: 18px; margin: 32px 0 2px; }
+h3 { font-size: 14px; margin: 20px 0 8px; color: var(--muted); font-weight: 600;
+     text-transform: uppercase; letter-spacing: .04em; }
+p.blurb { color: var(--muted); margin: 4px 0 12px; }
+img { image-rendering: pixelated; image-rendering: crisp-edges; display: block; }
+.scroller { overflow-x: auto; max-width: 100%; padding-bottom: 6px; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px;
+}
+.card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px 12px;
+}
+.card .name { font-weight: 600; font-size: 14px; }
+.card .desc { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+.states { display: flex; gap: 14px; flex-wrap: wrap; }
+.state { flex: 1 1 auto; }
+.state .tag { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.pair { display: flex; align-items: flex-end; gap: 10px; }
+.pair .cell { text-align: center; }
+.pair .cell span { display: block; font-size: 10px; color: var(--muted); margin-top: 4px; }
+.zoom8 { width: 128px; height: 128px; }
+.zoom4 { width: 64px; height: 64px; }
+.actual { width: 16px; height: 16px; }
+.scene {
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  padding: 22px 18px;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 2px, transparent 2px 6px),
+    linear-gradient(160deg, var(--scene-a), var(--scene-b) 70%);
+}
+.hotbar {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 3px;
+}
+.scene .caption { color: #9aa3b0; font-size: 12px; margin: 0 0 10px; }
+.scene + .scene { margin-top: 12px; }
+</style>
+<div class="wrap">
+<h1>Boss checklist icons</h1>
+<p class="blurb">Every icon is authored at 16x16 and drawn 1:1 in game. Judge the actual-size column - the zoom is only for reading the pixels. Reply like &ldquo;direction B, but the warden from A&rdquo;.</p>
+<h2>Direction A - creature silhouettes</h2>
+<p class="blurb">Each boss drawn as its own head/body shape. Reads as "who", at the cost of more shape complexity.</p>
+<h3>Framed slot (what ships)</h3>
+<div class="grid">
+<div class="card">
+<div class="name">Ender Dragon</div>
+<div class="desc">head profile, snout + jaw</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAeElEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF8UAbQUzgoYhq8FqAD5D0OUxDEBWhKwQmxheFxDCWA0gVjOyIRgGnI/5D8a4NCHLU98FFIcBsYbgjQVkQ+5deYaCsaUPvAYQsh2vAeiuwJU68RpAdGaiNDsDALoruT43mARLAAAAAElFTkSuQmCC" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAeElEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF8UAbQUzgoYhq8FqAD5D0OUxDEBWhKwQmxheFxDCWA0gVjOyIRgGnI/5D8a4NCHLU98FFIcBsYbgjQVkQ+5deYaCsaUPvAYQsh2vAeiuwJU68RpAdGaiNDsDALoruT43mARLAAAAAElFTkSuQmCC" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6UQwQk1QkaBiyGqwG4DMEXR7DAGRFyAqxieF1ASGM1QBiNSMbgmGAtYMfGOPShCxPfRdQHAbEGoI3FpANCY7KRcHY0gdeAwjZjtcAdFfgSp14DSA6M1GanQEVZFoUMa12lQAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6UQwQk1QkaBiyGqwG4DMEXR7DAGRFyAqxieF1ASGM1QBiNSMbgmGAtYMfGOPShCxPfRdQHAbEGoI3FpANCY7KRcHY0gdeAwjZjtcAdFfgSp14DSA6M1GanQEVZFoUMa12lQAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Wither</div>
+<div class="desc">wither skull, glowing eyes</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAbUlEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sB1tbW/7FhogzApRmbIRgGENKMbghWA+Li4sAYXROyOF4D/mfJgDG6AcjitDWA4jDA5W+iDKA4GqmSkGAGIBuELEaUARTnBZIMoDQ7AwChiMBmDmxWagAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAbUlEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sB1tbW/7FhogzApRmbIRgGENKMbghWA+Li4sAYXROyOF4D/mfJgDG6AcjitDWA4jDA5W+iDKA4GqmSkGAGIBuELEaUARTnBZIMoDQ7AwChiMBmDmxWagAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAbElEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6sRogp6j1HxsmygBcmrEZgmEAIc3ohmA1QFPXEozRNSGL4zXAys4XjNENQBanrQEUhwEufxNlAMXRSJWEBDMA2SBkMaIMoDgvkGQApdkZAIvwYDTNpqJpAAAAAElFTkSuQmCC" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAbElEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6sRogp6j1HxsmygBcmrEZgmEAIc3ohmA1QFPXEozRNSGL4zXAys4XjNENQBanrQEUhwEufxNlAMXRSJWEBDMA2SBkMaIMoDgvkGQApdkZAIvwYDTNpqJpAAAAAElFTkSuQmCC" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Warden</div>
+<div class="desc">torso + glowing chest sensor</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAY0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sBIk5e/7FhogzApRmbIbQxgCIvELId3SAUA4jVjGwIXgP0P9xAwSQZgK4ZmyG0dQFZYYBsCK6kizcWqGIAWZmJ0uwMAA/+yyCOBkOeAAAAAElFTkSuQmCC" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAY0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sBIk5e/7FhogzApRmbIbQxgCIvELId3SAUA4jVjGwIXgP0P9xAwSQZgK4ZmyG0dQFZYYBsCK6kizcWqGIAWZmJ0uwMAA/+yyCOBkOeAAAAAElFTkSuQmCC" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAYklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6sRogI6/xHxsmygBcmrEZQhsDKPICIdvRDUIxgFjNyIbgNcDdJxYFk2QAumZshtDWBWSFAbIhuJIu3ligigFkZSZKszMAqA9naLOEBMUAAAAASUVORK5CYII=" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAYklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6sRogI6/xHxsmygBcmrEZQhsDKPICIdvRDUIxgFjNyIbgNcDdJxYFk2QAumZshtDWBWSFAbIhuJIu3ligigFkZSZKszMAqA9naLOEBMUAAAAASUVORK5CYII=" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Elder Guardian</div>
+<div class="desc">spiked body + big eye</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF25AbHYC0QbB1GIY0DWnjyiM1QAQJtYArF5AVvDm2RWsGN0QrAbg0oxuCFEGPAqVB+OBM4AsL5AdiBRHI8UJieKkTHZmojQ7AwBBaGDvWTt5CgAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF25AbHYC0QbB1GIY0DWnjyiM1QAQJtYArF5AVvDm2RWsGN0QrAbg0oxuCFEGPAqVB+OBM4AsL5AdiBRHI8UJieKkTHZmojQ7AwBBaGDvWTt5CgAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZUlEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F64QboGNgQbRBMLYYBNo4BRGGsBoAwsQZg9QKygoi4IqwY3RCsBuDSjG4IUQYYm7uA8cAZQJYXyA5EiqOR4oREcVImOzNRmp0Byt+i4BftuBQAAAAASUVORK5CYII=" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZUlEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F64QboGNgQbRBMLYYBNo4BRGGsBoAwsQZg9QKygoi4IqwY3RCsBuDSjG4IUQYYm7uA8cAZQJYXyA5EiqOR4oREcVImOzNRmp0Byt+i4BftuBQAAAAASUVORK5CYII=" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+</div>
+<h3>Icon only (no frame)</h3>
+<div class="grid">
+<div class="card">
+<div class="name">Ender Dragon</div>
+<div class="desc">head profile, snout + jaw</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAT0lEQVR42mNgGFRAW8HsP0VqQJL4FBCSR1GErBCbGEHN+DBFmnEaAhI8H/MfjHFpQpanvgsoDgNiDSE6Qd278gwFE60ZnytITtZk2U53AADvz50vB1GmkwAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAT0lEQVR42mNgGFRAW8HsP0VqQJL4FBCSR1GErBCbGEHN+DBFmnEaAhI8H/MfjHFpQpanvgsoDgNiDSE6Qd278gwFE60ZnytITtZk2U53AADvz50vB1GmkwAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR42mNgGFRATFLxP0VqQJL4FBCSR1GErBCbGEHN+DBFmnEaAhK0dvADY1yakOWp7wKKw4BYQ4hOUMFRuSiYaM34XEFysibLdroDANUIfwWfaeAmAAAAAElFTkSuQmCC" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATklEQVR42mNgGFRATFLxP0VqQJL4FBCSR1GErBCbGEHN+DBFmnEaAhK0dvADY1yakOWp7wKKw4BYQ4hOUMFRuSiYaM34XEFysibLdroDANUIfwWfaeAmAAAAAElFTkSuQmCC" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Wither</div>
+<div class="desc">wither skull, glowing eyes</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAR0lEQVR42mNgGJTA2tr6PzZMkWaiDCGkmaAhIMm4uDgwRteELI7XgP9ZMmCMbgCyOG0NoDgMcPmbajFB+4QEMwDZIGSxYQgA8X2kVwkhWr8AAAAASUVORK5CYII=" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAR0lEQVR42mNgGJTA2tr6PzZMkWaiDCGkmaAhIMm4uDgwRteELI7XgP9ZMmCMbgCyOG0NoDgMcPmbajFB+4QEMwDZIGSxYQgA8X2kVwkhWr8AAAAASUVORK5CYII=" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAR0lEQVR42mNgGJRATlHrPzZMkWaiDCGkmaAhIElNXUswRteELI7XACs7XzBGNwBZnLYGUBwGuPxNtZigfUKCGYBsELLYMAQACgyFJSl6EVcAAAAASUVORK5CYII=" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAR0lEQVR42mNgGJRATlHrPzZMkWaiDCGkmaAhIElNXUswRteELI7XACs7XzBGNwBZnLYGUBwGuPxNtZigfUKCGYBsELLYMAQACgyFJSl6EVcAAAAASUVORK5CYII=" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Warden</div>
+<div class="desc">torso + glowing chest sensor</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARElEQVR42mNgGJRAxMnrPzZMkWaiDaHYAIq8QMh2vAYRqxmnIegK9D/cQMEkGYCuGZshtHUBxQFJKJYYyFVAUmKiGwAATXC+metQ9DIAAAAASUVORK5CYII=" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARElEQVR42mNgGJRAxMnrPzZMkWaiDaHYAIq8QMh2vAYRqxmnIegK9D/cQMEkGYCuGZshtHUBxQFJKJYYyFVAUmKiGwAATXC+metQ9DIAAAAASUVORK5CYII=" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQ0lEQVR42mNgGJRARl7jPzZMkWaiDaHYAIq8QMh2vAYRqxmnIegK3H1iUTBJBqBrxmYIbV1AcUASiiUGchWQlJjoBgDzappLq1H7fQAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQ0lEQVR42mNgGJRARl7jPzZMkWaiDaHYAIq8QMh2vAYRqxmnIegK3H1iUTBJBqBrxmYIbV1AcUASiiUGchWQlJjoBgDzappLq1H7fQAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Elder Guardian</div>
+<div class="desc">spiked body + big eye</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARklEQVR42mNgGDQgNjvhP0VqQYJdc/qIwjgtI9YAgprfPLuCFeM1hJBmdEOIMuBRqDwYD5wBZHmB7ECkOBopTkgUJ+UBAwDV4mPw67wmtAAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARklEQVR42mNgGDQgNjvhP0VqQYJdc/qIwjgtI9YAgprfPLuCFeM1hJBmdEOIMuBRqDwYD5wBZHmB7ECkOBopTkgUJ+UBAwDV4mPw67wmtAAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARklEQVR42mNgGDRAx8DmP0VqQYI2jgFEYZyWEWsAQc0RcUVYMV5DCGlGN4QoA4zNXcB44AwgywtkByLF0UhxQqI4KQ8YAAAdaOO1oSL5cQAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARklEQVR42mNgGDRAx8DmP0VqQYI2jgFEYZyWEWsAQc0RcUVYMV5DCGlGN4QoA4zNXcB44AwgywtkByLF0UhxQqI4KQ8YAAAdaOO1oSL5cQAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+</div>
+<h3>Zoomed 8x - unlocked</h3>
+<div class="scroller"><div class="pair">
+<div class="cell"><img class="zoom8" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAeElEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF8UAbQUzgoYhq8FqAD5D0OUxDEBWhKwQmxheFxDCWA0gVjOyIRgGnI/5D8a4NCHLU98FFIcBsYbgjQVkQ+5deYaCsaUPvAYQsh2vAeiuwJU68RpAdGaiNDsDALoruT43mARLAAAAAElFTkSuQmCC" alt=""><span>Ender Dragon</span></div>
+<div class="cell"><img class="zoom8" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAbUlEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sB1tbW/7FhogzApRmbIRgGENKMbghWA+Li4sAYXROyOF4D/mfJgDG6AcjitDWA4jDA5W+iDKA4GqmSkGAGIBuELEaUARTnBZIMoDQ7AwChiMBmDmxWagAAAABJRU5ErkJggg==" alt=""><span>Wither</span></div>
+<div class="cell"><img class="zoom8" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAY0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sBIk5e/7FhogzApRmbIbQxgCIvELId3SAUA4jVjGwIXgP0P9xAwSQZgK4ZmyG0dQFZYYBsCK6kizcWqGIAWZmJ0uwMAA/+yyCOBkOeAAAAAElFTkSuQmCC" alt=""><span>Warden</span></div>
+<div class="cell"><img class="zoom8" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF25AbHYC0QbB1GIY0DWnjyiM1QAQJtYArF5AVvDm2RWsGN0QrAbg0oxuCFEGPAqVB+OBM4AsL5AdiBRHI8UJieKkTHZmojQ7AwBBaGDvWTt5CgAAAABJRU5ErkJggg==" alt=""><span>Elder Guardian</span></div>
+</div></div>
+<h3>In context - actual size, dark scene</h3>
+<div class="scene"><p class="caption">All locked - fresh world</p><div class="hotbar">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAdklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6UQwQk1QkaBiyGqwG4DMEXR7DAGRFyAqxieF1ASGM1QBiNSMbgmGAtYMfGOPShCxPfRdQHAbEGoI3FpANCY7KRcHY0gdeAwjZjtcAdFfgSp14DSA6M1GanQEVZFoUMa12lQAAAABJRU5ErkJggg==" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAbElEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6sRogp6j1HxsmygBcmrEZgmEAIc3ohmA1QFPXEozRNSGL4zXAys4XjNENQBanrQEUhwEufxNlAMXRSJWEBDMA2SBkMaIMoDgvkGQApdkZAIvwYDTNpqJpAAAAAElFTkSuQmCC" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAYklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6sRogI6/xHxsmygBcmrEZQhsDKPICIdvRDUIxgFjNyIbgNcDdJxYFk2QAumZshtDWBWSFAbIhuJIu3ligigFkZSZKszMAqA9naLOEBMUAAAAASUVORK5CYII=" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZUlEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F64QboGNgQbRBMLYYBNo4BRGGsBoAwsQZg9QKygoi4IqwY3RCsBuDSjG4IUQYYm7uA8cAZQJYXyA5EiqOR4oREcVImOzNRmp0Byt+i4BftuBQAAAAASUVORK5CYII=" alt="">
+</div></div>
+<div class="scene"><p class="caption">Mixed - dragon and wither down</p><div class="hotbar">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAeElEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF8UAbQUzgoYhq8FqAD5D0OUxDEBWhKwQmxheFxDCWA0gVjOyIRgGnI/5D8a4NCHLU98FFIcBsYbgjQVkQ+5deYaCsaUPvAYQsh2vAeiuwJU68RpAdGaiNDsDALoruT43mARLAAAAAElFTkSuQmCC" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAbUlEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sB1tbW/7FhogzApRmbIRgGENKMbghWA+Li4sAYXROyOF4D/mfJgDG6AcjitDWA4jDA5W+iDKA4GqmSkGAGIBuELEaUARTnBZIMoDQ7AwChiMBmDmxWagAAAABJRU5ErkJggg==" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAYklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6sRogI6/xHxsmygBcmrEZQhsDKPICIdvRDUIxgFjNyIbgNcDdJxYFk2QAumZshtDWBWSFAbIhuJIu3ligigFkZSZKszMAqA9naLOEBMUAAAAASUVORK5CYII=" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZUlEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F64QboGNgQbRBMLYYBNo4BRGGsBoAwsQZg9QKygoi4IqwY3RCsBuDSjG4IUQYYm7uA8cAZQJYXyA5EiqOR4oREcVImOzNRmp0Byt+i4BftuBQAAAAASUVORK5CYII=" alt="">
+</div></div>
+<div class="scene"><p class="caption">All unlocked - run complete</p><div class="hotbar">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAeElEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF8UAbQUzgoYhq8FqAD5D0OUxDEBWhKwQmxheFxDCWA0gVjOyIRgGnI/5D8a4NCHLU98FFIcBsYbgjQVkQ+5deYaCsaUPvAYQsh2vAeiuwJU68RpAdGaiNDsDALoruT43mARLAAAAAElFTkSuQmCC" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAbUlEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sB1tbW/7FhogzApRmbIRgGENKMbghWA+Li4sAYXROyOF4D/mfJgDG6AcjitDWA4jDA5W+iDKA4GqmSkGAGIBuELEaUARTnBZIMoDQ7AwChiMBmDmxWagAAAABJRU5ErkJggg==" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAY0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sBIk5e/7FhogzApRmbIbQxgCIvELId3SAUA4jVjGwIXgP0P9xAwSQZgK4ZmyG0dQFZYYBsCK6kizcWqGIAWZmJ0uwMAA/+yyCOBkOeAAAAAElFTkSuQmCC" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF25AbHYC0QbB1GIY0DWnjyiM1QAQJtYArF5AVvDm2RWsGN0QrAbg0oxuCFEGPAqVB+OBM4AsL5AdiBRHI8UJieKkTHZmojQ7AwBBaGDvWTt5CgAAAABJRU5ErkJggg==" alt="">
+</div></div>
+<h2>Direction B - emblems</h2>
+<p class="blurb">One bold object per boss (its drop or signature block) instead of the mob. Chunkier, more contrast, less "mob portrait".</p>
+<h3>Framed slot (what ships)</h3>
+<div class="grid">
+<div class="card">
+<div class="name">Ender Dragon</div>
+<div class="desc">dragon egg</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF68B1fpH/oMwWQaANIoLyYMxLkNwGgDTbGscgNcQrAYg24yO0Q0haMA27/+kGYDPdmyGEG0AskuINgDd+RS5gGgDqBILyCkQHZOclCnOC0QZQGl2BgAJw7NilPCFVgAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF68B1fpH/oMwWQaANIoLyYMxLkNwGgDTbGscgNcQrAYg24yO0Q0haMA27/+kGYDPdmyGEG0AskuINgDd+RS5gGgDqBILyCkQHZOclCnOC0QZQGl2BgAJw7NilPCFVgAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F68Rqgrm32H4TJMgCkUVBYCoxxGYLTAJhmWQUtvIZgNQDZZnSMbghBA0wt3UkzAJ/t2Awh2gBklxBtALrzKXIB0QZQJRaQUyA6JjkpU5wXiDKA0uwMAH0TU6K1AyEEAAAAAElFTkSuQmCC" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F68Rqgrm32H4TJMgCkUVBYCoxxGYLTAJhmWQUtvIZgNQDZZnSMbghBA0wt3UkzAJ/t2Awh2gBklxBtALrzKXIB0QZQJRaQUyA6JjkpU5wXiDKA0uwMAH0TU6K1AyEEAAAAAElFTkSuQmCC" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Wither</div>
+<div class="desc">nether star</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAX0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF68BL958+g/C9DMAXTE2A5D5WF2ArADdAHTDcHoBphEd4/UCNg3/v20AY1yGUdcAir1AlUCkSjQObEokKzNRmp0B2kYhR47y9eEAAAAASUVORK5CYII=" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAX0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF68BL958+g/C9DMAXTE2A5D5WF2ArADdAHTDcHoBphEd4/UCNg3/v20AY1yGUdcAir1AlUCkSjQObEokKzNRmp0B2kYhR47y9eEAAAAASUVORK5CYII=" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F68RoQlVDyH4TpZwC6YmwGIPOxugBZAboB6Ibh9AJMIzrG6wVsGqKTysEYl2HUNYBiL1AlEKkSjQObEsnKTJRmZwAI7H2U5KoZJQAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F68RoQlVDyH4TpZwC6YmwGIPOxugBZAboB6Ibh9AJMIzrG6wVsGqKTysEYl2HUNYBiL1AlEKkSjQObEsnKTJRmZwAI7H2U5KoZJQAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Warden</div>
+<div class="desc">sculk shrieker ring</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZklEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sB/EaW/7Fhggbg0ojLIBQDkBXof7iBFaMbgtUAbIqxiaMYgK4Ql9PR5TAMQLeFEJ/6BpDtBYoDkSrRSHFCokpSJiszUZqdAX3q6RxTdL2+AAAAAElFTkSuQmCC" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZklEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sB/EaW/7Fhggbg0ojLIBQDkBXof7iBFaMbgtUAbIqxiaMYgK4Ql9PR5TAMQLeFEJ/6BpDtBYoDkSrRSHFCokpSJiszUZqdAX3q6RxTdL2+AAAAAElFTkSuQmCC" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6sRogLqX0HxsmaAAujbgMQjEAWYG7TyxWjG4IVgOwKcYmjmIAukJcTkeXwzAA3RaCfKobQLYXKA5EqkQjxQmJKkmZrMxEaXYGAF50eOBCANWQAAAAAElFTkSuQmCC" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6sRogLqX0HxsmaAAujbgMQjEAWYG7TyxWjG4IVgOwKcYmjmIAukJcTkeXwzAA3RaCfKobQLYXKA5EqkQjxQmJKkmZrMxEaXYGAF50eOBCANWQAAAAAElFTkSuQmCC" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Elder Guardian</div>
+<div class="desc">wet sponge</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF8WAa0cN/xODsRpArGZkQ7AakJ8iCsboGtDFaWcAuiaSvUCRAbicj80btDGAKtGIze/YXEX9lEiVvECWAZRmZwBm/kffXCBhqAAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF8WAa0cN/xODsRpArGZkQ7AakJ8iCsboGtDFaWcAuiaSvUCRAbicj80btDGAKtGIze/YXEX9lEiVvECWAZRmZwBm/kffXCBhqAAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXUlEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6UQzw8Iv/TwzGagCxmpENwWqAlq4lGKNrQBennQHomkj2AkUG4HI+Nm/QxgCqRCM2v2NzFfVTIlXyAlkGUJqdAU/oqVBm5qEoAAAAAElFTkSuQmCC" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXUlEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6UQzw8Iv/TwzGagCxmpENwWqAlq4lGKNrQBennQHomkj2AkUG4HI+Nm/QxgCqRCM2v2NzFfVTIlXyAlkGUJqdAU/oqVBm5qEoAAAAAElFTkSuQmCC" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+</div>
+<h3>Icon only (no frame)</h3>
+<div class="grid">
+<div class="card">
+<div class="name">Ender Dragon</div>
+<div class="desc">dragon egg</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVR42mNgGNSgWv/IfxAmW7O4kDwYk2wITLOtcQDphiDbjI6JMgTZgG3e/0kzAJ/tRBmCywBklxBtALrzKXIB1cKBpKjEhhmGJwAAeDaMO/XFxd4AAAAASUVORK5CYII=" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVR42mNgGNSgWv/IfxAmW7O4kDwYk2wITLOtcQDphiDbjI6JMgTZgG3e/0kzAJ/tRBmCywBklxBtALrzKXIB1cKBpKjEhhmGJwAAeDaMO/XFxd4AAAAASUVORK5CYII=" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATElEQVR42mNgGNRAXdvsPwiTrVlQWAqMSTYEpllWQYt0Q5BtRsdEGYJsgKmlO2kG4LOdKENwGYDsEqINQHc+RS6gWjiQFJXYMMPwBADKz26dxCsSHgAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATElEQVR42mNgGNRAXdvsPwiTrVlQWAqMSTYEpllWQYt0Q5BtRsdEGYJsgKmlO2kG4LOdKENwGYDsEqINQHc+RS6gWjiQFJXYMMPwBADKz26dxCsSHgAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Wither</div>
+<div class="desc">nether star</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQElEQVR42mNgGNTgxZtP/0GYfgagK8ZmAEEDkRWgG0C0a2Aa0THJmv5/2wDGRBlGsQEUe4EqgUiVaBzYlDggAAB0fuGpKRB5FQAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQElEQVR42mNgGNTgxZtP/0GYfgagK8ZmAEEDkRWgG0C0a2Aa0THJmv5/2wDGRBlGsQEUe4EqgUiVaBzYlDggAAB0fuGpKRB5FQAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAP0lEQVR42mNgGNQgKqHkPwjTzwB0xdgMIGggsgJ0A4h2DUwjOiZZU3RSORgTZRjFBlDsBaoEIlWicWBT4oAAADRhgqUHxsB1AAAAAElFTkSuQmCC" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAP0lEQVR42mNgGNQgKqHkPwjTzwB0xdgMIGggsgJ0A4h2DUwjOiZZU3RSORgTZRjFBlDsBaoEIlWicWBT4oAAADRhgqUHxsB1AAAAAElFTkSuQmCC" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Warden</div>
+<div class="desc">sculk shrieker ring</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARUlEQVR42mNgGJSA38jyPzZMtkaiDEJWoP/hBlaM1xB0zei2oovjtR2X03G6ApcthPjUN4BsL1AciFSJRooTElWS8oAAABDv/d1rib0/AAAAAElFTkSuQmCC" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARUlEQVR42mNgGJSA38jyPzZMtkaiDEJWoP/hBlaM1xB0zei2oovjtR2X03G6ApcthPjUN4BsL1AciFSJRooTElWS8oAAABDv/d1rib0/AAAAAElFTkSuQmCC" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARUlEQVR42mNgGJRAXErpPzZMtkaiDEJW4O4TixXjNQRdM7qt6OJ4bcfldJyuwGULIT71DSDbCxQHIlWikeKERJWkPCAAAP+WyaXeTvx+AAAAAElFTkSuQmCC" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAARUlEQVR42mNgGJRAXErpPzZMtkaiDEJW4O4TixXjNQRdM7qt6OJ4bcfldJyuwGULIT71DSDbCxQHIlWikeKERJWkPCAAAP+WyaXeTvx+AAAAAElFTkSuQmCC" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+<div class="card">
+<div class="name">Elder Guardian</div>
+<div class="desc">wet sponge</div>
+<div class="states">
+<div class="state"><div class="tag">unlocked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQElEQVR42mNgGFTg2lHD/8RgijTjNAQmkZ8iCsboGtDFaWcAuiaSvUCRAbicj80btDGAKtGIze/YXEX9lDh0AQAC01PAYdNCUQAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQElEQVR42mNgGFTg2lHD/8RgijTjNAQmkZ8iCsboGtDFaWcAuiaSvUCRAbicj80btDGAKtGIze/YXEX9lDh0AQAC01PAYdNCUQAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+<div class="state"><div class="tag">locked</div><div class="pair">
+<div class="cell"><img class="zoom4" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQElEQVR42mNgGFTAwy/+PzGYIs04DYFJaOlagjG6BnRx2hmArolkL1BkAC7nY/MGbQygSjRi8zs2V1E/JQ5dAAD6ZvIdaDGO8gAAAABJRU5ErkJggg==" alt=""><span>16px&times;4</span></div>
+<div class="cell"><img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAQElEQVR42mNgGFTAwy/+PzGYIs04DYFJaOlagjG6BnRx2hmArolkL1BkAC7nY/MGbQygSjRi8zs2V1E/JQ5dAAD6ZvIdaDGO8gAAAABJRU5ErkJggg==" alt=""><span>actual</span></div>
+</div></div>
+</div></div>
+</div>
+<h3>Zoomed 8x - unlocked</h3>
+<div class="scroller"><div class="pair">
+<div class="cell"><img class="zoom8" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF68B1fpH/oMwWQaANIoLyYMxLkNwGgDTbGscgNcQrAYg24yO0Q0haMA27/+kGYDPdmyGEG0AskuINgDd+RS5gGgDqBILyCkQHZOclCnOC0QZQGl2BgAJw7NilPCFVgAAAABJRU5ErkJggg==" alt=""><span>Ender Dragon</span></div>
+<div class="cell"><img class="zoom8" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAX0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF68BL958+g/C9DMAXTE2A5D5WF2ArADdAHTDcHoBphEd4/UCNg3/v20AY1yGUdcAir1AlUCkSjQObEokKzNRmp0B2kYhR47y9eEAAAAASUVORK5CYII=" alt=""><span>Wither</span></div>
+<div class="cell"><img class="zoom8" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZklEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sB/EaW/7Fhggbg0ojLIBQDkBXof7iBFaMbgtUAbIqxiaMYgK4Ql9PR5TAMQLeFEJ/6BpDtBYoDkSrRSHFCokpSJiszUZqdAX3q6RxTdL2+AAAAAElFTkSuQmCC" alt=""><span>Warden</span></div>
+<div class="cell"><img class="zoom8" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF8WAa0cN/xODsRpArGZkQ7AakJ8iCsboGtDFaWcAuiaSvUCRAbicj80btDGAKtGIze/YXEX9lEiVvECWAZRmZwBm/kffXCBhqAAAAABJRU5ErkJggg==" alt=""><span>Elder Guardian</span></div>
+</div></div>
+<h3>In context - actual size, dark scene</h3>
+<div class="scene"><p class="caption">All locked - fresh world</p><div class="hotbar">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAcklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F68Rqgrm32H4TJMgCkUVBYCoxxGYLTAJhmWQUtvIZgNQDZZnSMbghBA0wt3UkzAJ/t2Awh2gBklxBtALrzKXIB0QZQJRaQUyA6JjkpU5wXiDKA0uwMAH0TU6K1AyEEAAAAAElFTkSuQmCC" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F68RoQlVDyH4TpZwC6YmwGIPOxugBZAboB6Ibh9AJMIzrG6wVsGqKTysEYl2HUNYBiL1AlEKkSjQObEsnKTJRmZwAI7H2U5KoZJQAAAABJRU5ErkJggg==" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6sRogLqX0HxsmaAAujbgMQjEAWYG7TyxWjG4IVgOwKcYmjmIAukJcTkeXwzAA3RaCfKobQLYXKA5EqkQjxQmJKkmZrMxEaXYGAF50eOBCANWQAAAAAElFTkSuQmCC" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXUlEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6UQzw8Iv/TwzGagCxmpENwWqAlq4lGKNrQBennQHomkj2AkUG4HI+Nm/QxgCqRCM2v2NzFfVTIlXyAlkGUJqdAU/oqVBm5qEoAAAAAElFTkSuQmCC" alt="">
+</div></div>
+<div class="scene"><p class="caption">Mixed - dragon and wither down</p><div class="hotbar">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF68B1fpH/oMwWQaANIoLyYMxLkNwGgDTbGscgNcQrAYg24yO0Q0haMA27/+kGYDPdmyGEG0AskuINgDd+RS5gGgDqBILyCkQHZOclCnOC0QZQGl2BgAJw7NilPCFVgAAAABJRU5ErkJggg==" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAX0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF68BL958+g/C9DMAXTE2A5D5WF2ArADdAHTDcHoBphEd4/UCNg3/v20AY1yGUdcAir1AlUCkSjQObEokKzNRmp0B2kYhR47y9eEAAAAASUVORK5CYII=" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZklEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6sRogLqX0HxsmaAAujbgMQjEAWYG7TyxWjG4IVgOwKcYmjmIAukJcTkeXwzAA3RaCfKobQLYXKA5EqkQjxQmJKkmZrMxEaXYGAF50eOBCANWQAAAAAElFTkSuQmCC" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXUlEQVR42mOITs797+4bShYG6WUAMXj4hC+Rg0F6UQzw8Iv/TwzGagCxmpENwWqAlq4lGKNrQBennQHomkj2AkUG4HI+Nm/QxgCqRCM2v2NzFfVTIlXyAlkGUJqdAU/oqVBm5qEoAAAAAElFTkSuQmCC" alt="">
+</div></div>
+<div class="scene"><p class="caption">All unlocked - run complete</p><div class="hotbar">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAc0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF68B1fpH/oMwWQaANIoLyYMxLkNwGgDTbGscgNcQrAYg24yO0Q0haMA27/+kGYDPdmyGEG0AskuINgDd+RS5gGgDqBILyCkQHZOclCnOC0QZQGl2BgAJw7NilPCFVgAAAABJRU5ErkJggg==" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAX0lEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF68BL958+g/C9DMAXTE2A5D5WF2ArADdAHTDcHoBphEd4/UCNg3/v20AY1yGUdcAir1AlUCkSjQObEokKzNRmp0B2kYhR47y9eEAAAAASUVORK5CYII=" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZklEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF6sB/EaW/7Fhggbg0ojLIBQDkBXof7iBFaMbgtUAbIqxiaMYgK4Ql9PR5TAMQLeFEJ/6BpDtBYoDkSrRSHFCokpSJiszUZqdAX3q6RxTdL2+AAAAAElFTkSuQmCC" alt="">
+<img class="actual" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAXklEQVR42mPY9n/P/5j/WWRhkF4GEINPS+gSORikF8WAa0cN/xODsRpArGZkQ7AakJ8iCsboGtDFaWcAuiaSvUCRAbicj80btDGAKtGIze/YXEX9lEiVvECWAZRmZwBm/kffXCBhqAAAAABJRU5ErkJggg==" alt="">
+</div></div>
+</div>
