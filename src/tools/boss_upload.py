@@ -49,6 +49,11 @@ SIZES = {
                              "only fits as a single skull"},
     48: {"scale": 3, "note": "nothing is clipped - every icon's native art "
                              "is at most 40x40"},
+    # Authored at double the on-screen size. The source sheet is not a clean integer upscale - it
+    # carries shading finer than its own block grid - so decimating it to 48 before shipping threw
+    # detail away. Shipping 96 and letting the font's height field halve it keeps that detail and
+    # moves the downscale into the renderer, which is where it belongs.
+    96: {"scale": 6, "note": "2x supersampled, displayed at 48 via the font height"},
 }
 FRAMES = {
     "inventory": {"tile": "slot", "src_size": 18, "bevel": 1},
@@ -62,7 +67,7 @@ PICK_FRAME = "inventory"
 # Three skulls are 40 native px wide, so at 32px art the outer two get sliced.
 # Below SHIP_SIZE 48 the wither ships as its centre skull only.
 WITHER_CENTRE_W = 15
-SHIP_SIZE = 48
+SHIP_SIZE = 96
 SHIP_FRAME = "inventory"
 HUD = os.path.join(ROOT, "pack", "assets", "hcpack", "textures", "hud")
 

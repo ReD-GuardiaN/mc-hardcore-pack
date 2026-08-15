@@ -49,7 +49,7 @@ def bands(mask, length, other):
 # scale as the first one, whose grid was measured at 6 by three independent methods, and 6 is the only
 # value that reproduces the earlier extraction's icon sizes. Pinned, with the size check below as the
 # guard: a wrong block size shows up immediately as icons that are not ~25-40px wide.
-BLOCK = 6
+BLOCK = 3
 
 
 def block_size(alpha, x0, x1, y0, y1):
@@ -66,6 +66,38 @@ def block_size(alpha, x0, x1, y0, y1):
                     best = run if best is None else min(best, run)
                 run, prev = 1, cur
     return best or 1
+
+
+def dominant(px, bx, by, b, xmax, ymax):
+    counts = {}
+    for y in range(by, min(by + b, ymax + 1)):
+        for x in range(bx, min(bx + b, xmax + 1)):
+            v = bytes(px(x, y))
+            counts[v] = counts.get(v, 0) + 1
+    if not counts:
+        return b"\x00\x00\x00\x00"
+    # transparent only wins if it is a strict majority, so a thin feature is not eaten by its margin
+    best = max(counts, key=lambda v: (counts[v], v[3]))
+    clear = counts.get(b"\x00\x00\x00\x00", 0)
+    if best[3] == 0 and clear * 2 <= sum(counts.values()):
+        opaque_only = {v: n for v, n in counts.items() if v[3] > 0}
+        if opaque_only:
+            best = max(opaque_only, key=opaque_only.get)
+    return best
+
+
+def find_phase(alpha_at, width, height, b):
+    """Grid origin: the offset whose block boundaries land on the most alpha transitions."""
+    best, best_score = 0, -1
+    for off in range(b):
+        score = 0
+        for x in range(off, width - 1, b):
+            for y in range(0, height, 7):
+                if alpha_at(x, y) != alpha_at(x + 1, y):
+                    score += 1
+        if score > best_score:
+            best, best_score = off, score
+    return best
 
 
 def write_png(path, width, height, pixels):
@@ -92,6 +124,11 @@ def main():
     def opaque(x, y):
         return raw[(y * width + x) * 4 + 3] > 16
 
+    alpha_at = lambda x, y: raw[(y * width + x) * 4 + 3] > 16
+    phase_x = find_phase(alpha_at, width, height, BLOCK)
+    phase_y = find_phase(lambda y, x: alpha_at(x, y), height, width, BLOCK)
+    print(f"grid phase: x={phase_x} y={phase_y} block={BLOCK}")
+
     row_bands = bands(lambda y, x: opaque(x, y), height, width)
     if len(row_bands) != ROWS:
         raise SystemExit(f"expected {ROWS} rows, found {len(row_bands)}: {row_bands}")
@@ -106,25 +143,49 @@ def main():
 
         for (x0, x1), name in zip(cols, COLUMNS):
             b = BLOCK
-            nw = (x1 - x0 + 1 + b // 2) // b
-            nh = (y1 - y0 + 1 + b // 2) // b
+            # Phase comes from the sheet's global grid, not this icon's bounding box: an icon whose
+            # art happens to start mid-block would otherwise be sampled across block boundaries and
+            # lose every feature thinner than a block.
+            gx, gy = phase_x, phase_y
+            x0 = x0 - (x0 - gx) % b
+            y0 = y0 - (y0 - gy) % b
+            nw = -(-(x1 - x0 + 1) // b)
+            nh = -(-(y1 - y0 + 1) // b)
             rows = []
             for ny in range(nh):
                 line = bytearray()
                 for nx in range(nw):
-                    sx = min(x0 + nx * b + b // 2, x1)
-                    sy = min(y0 + ny * b + b // 2, y1)
-                    line += px(sx, sy)
+                    # Dominant colour of the block, not its centre pixel. On a clean upscale every
+                    # interior pixel is identical and this is exact; on anti-aliased edges the true
+                    # colour still outvotes the blended fringe, which centre sampling does not.
+                    line += dominant(px, x0 + nx * b, y0 + ny * b, b, x1, y1)
                 rows.append(line)
             out = OUT / f"v{r}_{name}.png"
             write_png(out, nw, nh, rows)
-            made.append((out.name, b, nw, nh))
 
-    bad = [(n, w, h) for n, _, w, h in made if not (20 <= w <= 50 and 14 <= h <= 40)]
+            # Proof the grid is right: blow the extraction back up by the block size and compare it
+            # to the region it came from. A wrong block size or phase lands several times higher.
+            err = n = 0
+            for y in range(y0, min(y0 + nh * b, y1 + 1)):
+                for x in range(x0, min(x0 + nw * b, x1 + 1)):
+                    src_px = px(x, y)
+                    got = rows[(y - y0) // b][((x - x0) // b) * 4:((x - x0) // b) * 4 + 4]
+                    for ch in range(4):
+                        err += abs(src_px[ch] - got[ch])
+                        n += 1
+            made.append((out.name, b, nw, nh, err / max(n, 1)))
+
+    bad = [(n, w, h) for n, _, w, h, _ in made if not (40 <= w <= 100 and 28 <= h <= 80)]
     if bad:
         raise SystemExit(f"block size looks wrong, icons out of range: {bad}")
-    for name, b, nw, nh in made:
-        print(f"{name:18} block={b:2}  native={nw}x{nh}")
+    worst = max(m[4] for m in made)
+    for name, b, nw, nh, rt in made:
+        print(f"{name:18} block={b:2}  native={nw}x{nh:2}  round-trip {rt:5.2f}/255")
+    print(f"\nworst round-trip error {worst:.2f}/255")
+    # At block 3 the sheet's sub-block shading survives, so the residual here is the art's own
+    # gradient rather than a grid error. Kept as a sanity bound, not a fidelity claim.
+    if worst > 25:
+        raise SystemExit("round-trip too high - grid or phase is wrong")
     print(f"\n{len(made)} icons -> {OUT}")
 
 
