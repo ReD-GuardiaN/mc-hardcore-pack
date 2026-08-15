@@ -31,6 +31,9 @@ expected = {
     0xE004: "warden_grey", 0xE005: "warden",
     0xE006: "elder_grey",  0xE007: "elder",
 }
+# every boss head again one row lower, for the 2x2 cluster
+for cp in list(expected):
+    expected[cp + 0x10] = expected[cp]
 materials = ["netherite", "diamond", "iron", "golden",
              "chainmail", "copper", "leather", "turtle", "empty"]
 slots = ["helmet", "chestplate", "leggings", "boots"]
@@ -62,22 +65,26 @@ def png_size(path):
     assert b[:8] == b"\x89PNG\r\n\x1a\n", path
     return struct.unpack(">II", b[16:24])
 
+boss_names = {v for k, v in expected.items() if k < 0xE100}
 for name in expected.values():
     f = root / f"assets/hcpack/textures/hud/{name}.png"
-    assert png_size(f) == (16, 16), (f, png_size(f))
+    # Boss heads carry 32px art in the 36x36 framed slot; everything else is 16.
+    want = (36, 36) if name in boss_names else (16, 16)
+    assert png_size(f) == want, (f, png_size(f), want)
     # a silently blank 16x16 is the easy failure to ship
     colours = int(subprocess.run(["identify", "-format", "%k", str(f)],
                                  capture_output=True, text=True, check=True).stdout)
     assert colours >= 2, f"blank or uniform icon: {f}"
     # THE advance contract: the client derives a glyph's advance from its rightmost
-    # non-transparent column, so every glyph must reach column 15 or the plugin's
-    # uniform 17 px advance is wrong and durability bars drift off their icons.
+    # non-transparent column, so every glyph must reach its own last column or the
+    # advance is wrong and durability bars drift off their icons.
     last = max(int(line.split(",")[0])
                for line in subprocess.run(["convert", str(f), "-alpha", "extract", "txt:-"],
                                           capture_output=True, text=True, check=True
                                           ).stdout.splitlines()[1:]
                if not line.split(":")[1].strip().startswith("(0)"))
-    assert last == 15, f"{f} last opaque column is {last}, must be 15 (advance would be {last + 2})"
+    edge = want[0] - 1
+    assert last == edge, f"{f} last opaque column is {last}, must be {edge} (advance would be {last + 2})"
 # The vanilla armor row must be blanked, and nothing else in gui/sprites/hud may be.
 hud = root / "assets/minecraft/textures/gui/sprites/hud"
 overrides = sorted(x.name for x in hud.iterdir())

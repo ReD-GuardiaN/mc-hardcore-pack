@@ -103,10 +103,15 @@ def main():
         raise SystemExit(f"no glyphs under {HUD}")
     padded = sum(pad(f) for f in files)
 
-    spans = {content_span(f) for f in files}
-    if spans != {(0, 15)}:
-        raise SystemExit(f"glyphs still disagree on advance: {sorted(spans)}")
-    print(f"padded {padded}/{len(files)} glyphs; all span x0..x15, advance 17")
+    # Glyph canvases are no longer all 16 wide - the boss heads are 36 - so
+    # each file must span its own full width rather than a single global one.
+    bad = {f.name: content_span(f) for f in files
+           if content_span(f) != (0, read_png(f)[0] - 1)}
+    if bad:
+        raise SystemExit(f"glyphs still disagree on advance: {bad}")
+    widths = sorted({read_png(f)[0] for f in files})
+    print(f"padded {padded}/{len(files)} glyphs; each spans its full canvas "
+          f"(widths {widths}, advance = width + 1)")
 
 
 if __name__ == "__main__":

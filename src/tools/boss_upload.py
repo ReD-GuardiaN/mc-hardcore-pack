@@ -56,10 +56,15 @@ FRAMES = {
 }
 
 # --- the final pick: one line per boss ---
-PICK = {"dragon": 3, "elder": 1, "warden": 3, "wither": 1}
-PICK_SIZE = 48
+PICK = {"dragon": 1, "elder": 5, "warden": 4, "wither": 3}
+PICK_SIZE = 32
 PICK_FRAME = "inventory"
-WITHER_CROP = "full"      # "full" (three skulls) or "centre" (one skull)
+# Three skulls are 40 native px wide, so at 32px art the outer two get sliced.
+# Below SHIP_SIZE 48 the wither ships as its centre skull only.
+WITHER_CENTRE_W = 15
+SHIP_SIZE = 32
+SHIP_FRAME = "inventory"
+HUD = os.path.join(ROOT, "pack", "assets", "hcpack", "textures", "hud")
 
 MIXED_STATES = ["unlocked", "unlocked", "locked", "locked"]
 
@@ -154,8 +159,7 @@ def write_icon(grid, pts, dest, crop=None):
     x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
     if crop == "centre":
         cx = (x0 + x1) // 2
-        half = (y1 - y0) // 2 + 2
-        x0, x1 = cx - half, cx + half
+        x0, x1 = cx - WITHER_CENTRE_W // 2, cx + WITHER_CENTRE_W // 2
     w, h = x1 - x0 + 1, y1 - y0 + 1
     px = [(0, 0, 0, 0)] * (w * h)
     for x, y in pts:
@@ -194,10 +198,12 @@ def art(variant, boss, size, state, tmp):
     src = os.path.join(NATIVE, "v%d_%s.png" % (variant, boss))
     args = [src]
     if state == "locked":
-        # Desaturate and darken. These have real internal detail, so flattening
-        # them to one tone would throw away the thing that makes them readable.
+        # Desaturate, then compress the range into a dark band. A plain
+        # multiply drives this art - which is already very dark - to near
+        # black, losing the internal detail that makes it readable; +level
+        # keeps the detail while staying clearly darker than the light slot.
         args += ["-colorspace", "Gray", "-colorspace", "sRGB",
-                 "-channel", "RGB", "-evaluate", "multiply", "0.45", "+channel"]
+                 "-channel", "RGB", "+level", "12%,50%", "+channel"]
     args += ["-background", "none", "-gravity", "center",
              "-extent", "%dx%d" % (size, size)]
     bs.run(*args, tmp)
@@ -229,7 +235,8 @@ def make_cluster(dest, picks, size, frame, states):
         args += ["(", tile, ")", "-geometry",
                  "+%d+%d" % ((i % 2) * outer, (i // 2) * outer), "-composite"]
     for i, boss in enumerate(BOSSES):
-        a = art(picks[boss], boss, size, states[i], bs.r("_a%d" % i))
+        src = wither_art(size) if boss == "wither" else boss
+        a = art(picks[boss], src, size, states[i], bs.r("_a%d" % i))
         args += ["(", a, ")", "-geometry",
                  "+%d+%d" % ((i % 2) * outer + inset, (i // 2) * outer + inset),
                  "-composite"]
@@ -254,6 +261,25 @@ def make_mock(dest, picks, size, frame, scene):
            "-geometry", "+%d+%d" % (bs.PAD + bs.ROW_DX, hy + 22 - ch), "-composite",
            "-depth", "8", "-strip", dest)
     return w, h, cw, ch
+
+
+def wither_art(size):
+    """Which wither extraction fits: all three skulls need 40px of art."""
+    return "wither" if size >= 40 else "wither_centre"
+
+
+def ship():
+    """Write the eight pack glyphs at the existing codepoint names."""
+    os.makedirs(HUD, exist_ok=True)
+    for boss in BOSSES:
+        src = wither_art(SHIP_SIZE) if boss == "wither" else boss
+        for state, suffix in (("unlocked", ""), ("locked", "_grey")):
+            dest = os.path.join(HUD, boss + suffix + ".png")
+            outer = make_icon(dest, PICK[boss], src, SHIP_SIZE, SHIP_FRAME, state)
+            # The framed slot is fully opaque, so ImageMagick drops the alpha
+            # channel; pad_advance.py needs RGBA to stamp its corner pixels.
+            bs.run(dest, "-alpha", "set", "-strip", "PNG32:" + dest)
+    return outer
 
 
 def main():
@@ -287,9 +313,6 @@ def main():
                         outer = make_icon(d, v, boss, size, frame, state)
                         icons[(size, frame, v, boss, state)] = (bs.uri(d), outer)
 
-    picks = dict(PICK)
-    if WITHER_CROP == "centre":
-        picks["wither_centre"] = picks.pop("wither")
     for size in SIZES:
         for frame in FRAMES:
             key = (size, frame)
@@ -302,6 +325,10 @@ def main():
                 mocks[(size, frame, scene)] = (bs.uri(m), mw, mh)
             print("2x2  %2dpx art  %-9s  %3dx%-3d  %s"
                   % (size, frame, cw, ch, "fits" if cw <= bs.BUDGET else "OVER"))
+
+    outer = ship()
+    print("shipped 8 glyphs to %s at %dx%d (art %dpx + %dpx bevel)"
+          % (HUD, outer, outer, SHIP_SIZE, (outer - SHIP_SIZE) // 2))
 
     with open(PREVIEW, "w") as fh:
         fh.write(build_html(icons, clusters, mocks, dims, rt))
@@ -354,8 +381,9 @@ def build_html(icons, clusters, mocks, dims, rt):
              "skulls and letterboxes them with transparent padding top and bottom "
              "- which needs the 48px art size, since at 32px the outer skulls get "
              "cut. <b>Centre skull</b> crops to the middle head and fits any size, "
-             "at the cost of the wither's most recognisable feature. Currently "
-             "set to <b>%s</b>.</div>" % WITHER_CROP)
+             "at the cost of the wither's most recognisable feature. At 32px "
+             "art the full version is unusable - the outer skulls get sliced - "
+             "so 32px ships the centre skull and 48px ships all three.</div>")
 
     o.append("<h2>Size and frame</h2>")
     o.append('<table><tr><th>Art</th><th>Frame</th><th>Per icon</th>'
