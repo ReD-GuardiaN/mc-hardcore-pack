@@ -62,13 +62,20 @@ for name in expected.values():
     colours = int(subprocess.run(["identify", "-format", "%k", str(f)],
                                  capture_output=True, text=True, check=True).stdout)
     assert colours >= 2, f"blank or uniform icon: {f}"
-for c in ("pink_background", "pink_progress"):
-    f = root / f"assets/minecraft/textures/gui/sprites/boss_bar/{c}.png"
-    assert png_size(f) == (182, 5), (f, png_size(f))
-# nothing else in the pack may shadow a vanilla boss bar sprite
-bars = sorted(x.name for x in (root / "assets/minecraft/textures/gui/sprites/boss_bar").iterdir())
-assert bars == ["pink_background.png", "pink_progress.png"], bars
-print(f"validated: format 84, {len(expected)} glyphs, negative space, pink-only bar override")
+# The vanilla armor row must be blanked, and nothing else in gui/sprites/hud may be.
+hud = root / "assets/minecraft/textures/gui/sprites/hud"
+overrides = sorted(x.name for x in hud.iterdir())
+assert overrides == ["armor_empty.png", "armor_full.png", "armor_half.png"], overrides
+for name in overrides:
+    f = hud / name
+    assert png_size(f) == (9, 9), (f, png_size(f))
+    # a sprite that is not fully transparent would leave the vanilla row showing through
+    alpha = subprocess.run(["convert", str(f), "-alpha", "extract", "-format", "%[fx:maxima]", "info:"],
+                           capture_output=True, text=True, check=True).stdout
+    assert float(alpha) == 0.0, f"{f} is not fully transparent (max alpha {alpha})"
+# the PINK boss bar override is gone: nothing hosts a boss bar any more
+assert not (root / "assets/minecraft/textures/gui/sprites/boss_bar").exists(), "stale boss bar override"
+print(f"validated: format 84, {len(expected)} glyphs, negative space, armor row blanked")
 EOF
 
 rm -rf dist && mkdir -p dist

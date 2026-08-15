@@ -83,14 +83,17 @@ print('#%02X%02X%02X'%(round(r*255),round(g*255),round(b*255)))")
     -alpha set "$OUT/bar_${n}.png"
 done
 
-# fully transparent PINK boss bar (host bar for the HUD); other colours untouched
-BB=pack/assets/minecraft/textures/gui/sprites/boss_bar
-mkdir -p "$BB"
-for f in pink_background pink_progress; do
-  convert -size 182x5 xc:none -alpha set "$BB/$f.png"
+# --- hide the vanilla armor row -----------------------------------------
+# Our armor icons replace it, so blank the three 9x9 sprites the armor bar is
+# drawn from. Sprite-per-file since 1.20.5, so this touches nothing else:
+# hearts, hunger, air, xp and the hotbar all live in their own files.
+HUD=pack/assets/minecraft/textures/gui/sprites/hud
+mkdir -p "$HUD"
+for f in armor_full armor_half armor_empty; do
+  convert -size 9x9 xc:none -alpha set "$HUD/$f.png"
 done
 
 # -strip drops ImageMagick's date chunks, which would otherwise change the
 # zip's sha1 on every rebuild and force every client to re-download
-for f in $(ls "$OUT"/*.png "$BB"/*.png); do convert "$f" -strip -define png:exclude-chunk=tIME PNG32:"$f"; done
-identify "$OUT"/*.png "$BB"/*.png
+for f in $(ls "$OUT"/*.png "$HUD"/*.png); do convert "$f" -strip -define png:exclude-chunk=tIME PNG32:"$f"; done
+identify "$OUT"/*.png "$HUD"/*.png

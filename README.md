@@ -2,8 +2,8 @@
 
 HUD resource pack for a small private Minecraft server (26.1.2, pack format 84).
 It contains boss face icons and armor icons derived from the vanilla Minecraft
-client textures, durability bar glyphs, and a fully transparent PINK boss bar
-sprite so a plugin can use a PINK boss bar purely as a text anchor.
+client textures, durability bar glyphs, and blanked vanilla armor bar sprites so
+the plugin's own armor icons can take that row on the action bar.
 
 Not affiliated with Mojang. The derived textures are Mojang's; this is only
 useful to players who already own the game.
@@ -21,8 +21,8 @@ Font `hcpack:hud`, all glyphs 16x16, `height` 16, `ascent` 12.
 | `U+E200`..`U+E223` | armor, `0xE200 + material*4 + slot` |
 | `U+E230`..`U+E23D` | durability bar, `0xE230 + filled` (0..13) |
 
-The PINK boss bar (`Overlay.PROGRESS` only) draws nothing. GREEN / YELLOW / RED
-and the notched overlays are untouched.
+The vanilla armor row (`gui/sprites/hud/armor_{full,half,empty}.png`) is blanked, so the
+plugin's own armor icons replace it. Hearts, hunger, air, XP and the hotbar are untouched.
 
 ## Build and publish
 
