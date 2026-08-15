@@ -7,12 +7,12 @@ and advance **17 px** (width + 1) - `U+E106` (-17) backs up exactly one
 of them, which is how a durability bar is slid under an armor icon.
 
 Boss glyphs are 36x36 (32px art inside the vanilla inventory slot),
-`height` 27, `ascent` -6, and advance **37 px**.
+`height` 27, `ascent` -35, and advance **37 px**.
 Four in a row is 148 px, which overruns the 115 px available per side -
 use two columns.
 
 Every boss head is registered a second time at `codepoint + 0x10`
-(`U+E010`..`U+E017`) with `ascent` -35, one glyph height lower.
+(`U+E010`..`U+E017`) with `ascent` -6, one glyph height lower.
 That second copy is the bottom row of a 2x2 cluster; GlyphHud draws it by
 backing the pen up a row and emitting the shifted codepoints.
 

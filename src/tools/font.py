@@ -17,8 +17,12 @@ BOSS_ROW_GAP = 2
 # bottom edge means solving BOSS_HEIGHT - A = HEIGHT - ASCENT for the LOWER row. The upper row is
 # then one glyph plus the row gap higher. Deriving both from the armor line keeps the block pinned
 # to the hotbar when ASCENT is retuned, instead of drifting off the bottom of the screen.
-BOSS_ROW2_ASCENT = BOSS_HEIGHT - (HEIGHT - ASCENT)
-BOSS_ASCENT = BOSS_ROW2_ASCENT + BOSS_HEIGHT + BOSS_ROW_GAP
+# The base codepoints are what the plugin draws FIRST, and with a single row that is the only row -
+# so they carry the armor-aligned ascent, not the top-of-a-2x2 one. A glyph's bottom sits at
+# (height - ascent) below the baseline, so matching the armor icons means height - A = HEIGHT - ASCENT.
+# The +0x10 copies sit one glyph higher, which is where a second row goes when boss-columns is 2.
+BOSS_ASCENT = BOSS_HEIGHT - (HEIGHT - ASCENT)
+BOSS_ROW2_ASCENT = BOSS_ASCENT + BOSS_HEIGHT + BOSS_ROW_GAP
 
 # A second row cannot be produced by moving the pen - vertical position lives in
 # the provider's ascent - so every boss head is registered twice, the lower copy
