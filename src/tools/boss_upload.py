@@ -184,11 +184,22 @@ def extract_all(grid):
     return dims
 
 
+# The boss art is almost entirely dark - a black dragon, a charcoal wither, a deep-teal warden - and
+# vanilla's slot interior is light grey, which is the worst possible ground for it: the silhouettes
+# stop reading. Darkening only the interior keeps the vanilla bevel (so it still looks like a real
+# slot) while giving the art something to separate from.
+SLOT_INTERIOR = "#2b2b2b"
+
+
 def frame_tile(frame, scale, dest):
     f = FRAMES[frame]
     if frame == "inventory":
         bs.run(bs.r("slot"), "-filter", "point",
-               "-resize", "%d%%" % (scale * 100), dest)
+               "-resize", "%d%%" % (scale * 100),
+               # flood the interior from the centre, leaving the bevel untouched
+               "-fill", SLOT_INTERIOR, "-draw",
+               "color %d,%d floodfill" % (scale * 9, scale * 9),
+               dest)
     else:
         bs.run(bs.r("hotbar"), "-crop", "20x20+1+1", "+repage",
                "-filter", "point", "-resize", "%d%%" % (scale * 100), dest)
