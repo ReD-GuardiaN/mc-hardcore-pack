@@ -68,8 +68,8 @@ def png_size(path):
 boss_names = {v for k, v in expected.items() if k < 0xE100}
 for name in expected.values():
     f = root / f"assets/hcpack/textures/hud/{name}.png"
-    # Boss heads carry 32px art in the 36x36 framed slot; everything else is 16.
-    want = (36, 36) if name in boss_names else (16, 16)
+    # Boss heads carry 48px art in the 54x54 framed slot; everything else is 16.
+    want = (54, 54) if name in boss_names else (16, 16)
     assert png_size(f) == want, (f, png_size(f), want)
     # a silently blank 16x16 is the easy failure to ship
     colours = int(subprocess.run(["identify", "-format", "%k", str(f)],

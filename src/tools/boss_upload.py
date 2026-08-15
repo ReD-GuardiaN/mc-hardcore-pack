@@ -57,12 +57,12 @@ FRAMES = {
 
 # --- the final pick: one line per boss ---
 PICK = {"dragon": 1, "elder": 5, "warden": 4, "wither": 3}
-PICK_SIZE = 32
+PICK_SIZE = 48
 PICK_FRAME = "inventory"
 # Three skulls are 40 native px wide, so at 32px art the outer two get sliced.
 # Below SHIP_SIZE 48 the wither ships as its centre skull only.
 WITHER_CENTRE_W = 15
-SHIP_SIZE = 32
+SHIP_SIZE = 48
 SHIP_FRAME = "inventory"
 HUD = os.path.join(ROOT, "pack", "assets", "hcpack", "textures", "hud")
 
