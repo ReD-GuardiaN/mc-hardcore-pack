@@ -26,7 +26,11 @@ PHASE = (1, 2)
 
 ROOT = bs.ROOT
 OUT = os.path.join(ROOT, "src", "icons", "upload")
-NATIVE = os.path.join(OUT, "native")
+# The second contact sheet supersedes the first: it ships the art on transparency with no captions,
+# and sheet2_extract.py reads it on a block-3 grid, which halves the round-trip error against the
+# block-6 read of sheet one. extract_all() below still parses the OLD sheet, so it must not be
+# allowed to write here or it silently replaces the good art with the low-detail version.
+NATIVE = os.path.join(OUT, "native2")
 PREVIEW = bs.PREVIEW
 
 BG = (23, 25, 28)
@@ -176,7 +180,10 @@ def write_icon(grid, pts, dest, crop=None):
 
 
 def extract_all(grid):
-    os.makedirs(NATIVE, exist_ok=True)
+    # Superseded by sheet2_extract.py - kept for the preview's variant grid, but it writes to the old
+    # directory so it cannot clobber the shipping art.
+    legacy = os.path.join(OUT, "native")
+    os.makedirs(legacy, exist_ok=True)
     dims = {}
     for vi, (y0, y1) in enumerate(BANDS):
         for boss, (xa, xb) in zip(BOSSES, WINDOWS):
@@ -184,7 +191,7 @@ def extract_all(grid):
             crops = [None, "centre"] if boss == "wither" else [None]
             for crop in crops:
                 key = (VARIANTS[vi], boss if crop is None else "wither_centre")
-                d = os.path.join(NATIVE, "v%d_%s.png" % key)
+                d = os.path.join(legacy, "v%d_%s.png" % key)
                 dims[key] = write_icon(grid, pts, d, crop)
     return dims
 
