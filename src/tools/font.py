@@ -5,7 +5,7 @@ import pathlib
 
 # The two tuning knobs. Raising ASCENT moves the glyph up. ASCENT <= HEIGHT.
 HEIGHT = 16
-ASCENT = 12
+ASCENT = -28
 
 BOSSES = [
     ("dragon_grey", 0xE000), ("dragon", 0xE001),
