@@ -5,6 +5,13 @@ cd "$(dirname "$0")"
 ZIP=dist/hcpack.zip
 
 ./src/tools/make-icons.sh >/dev/null
+
+# Both of these normalise geometry and must run after the icons are regenerated, or make-icons.sh
+# overwrites them. center_glyphs widens the durability bars to the armor icons' 7.5 centre so the
+# two stack with a zero offset; pad_advance gives every glyph the same 17px advance.
+python3 src/tools/center_glyphs.py
+python3 src/tools/pad_advance.py
+
 python3 src/tools/font.py
 
 python3 - <<'EOF'
